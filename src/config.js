@@ -1,6 +1,6 @@
 //to create a database connection
 const mongoose = require("mongoose");
-const connect = mongoose.connect("mongodb+srv://Mosmit:<db_password>@mosmit.j1jkfm1.mongodb.net/oluwaseun");
+const connect = mongoose.connect("mongodb+srv://Mosmit:Mosmit10$@mosmit.j1jkfm1.mongodb.net/oluwaseun");
 
 //to check the database connection
 connect.then(() => {
