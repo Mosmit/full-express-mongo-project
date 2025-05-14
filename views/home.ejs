@@ -6,6 +6,21 @@
     <title>home</title>
 </head>
 <body>
-    <h1>Welcome to Mosmit Page: Do as You Like You are Free</h1>
+    <h1>Welcome to Mosmit Page: Do as You Like You are Free<span id="spa"></span></h1>
+    <script>
+
+        const spa = document.getElementById("spa");
+
+        function sumadd(start, end){
+            let sum = 0;
+            for (let i = start; i <= end; i++){
+                sum += i;
+            }
+            return sum;
+        }
+        spa.textContent = `this is ${sumadd(1, 5)} precocoios`;
+        console.log(sumadd(1, 5));
+
+    </script>
 </body>
 </html>
