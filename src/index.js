@@ -45,9 +45,11 @@ app.post("/signup", async (req, res) =>{
 
         const userdata = await collection.insertMany(data);
         console.log(userdata);
+        res.send("successfully signed-up redirecting...")
+
     }
 
-    
+    //come back to this later, need to find a way to redirect this page to the login page after getting the message 'successfully signed-up
 });
 
 // Login user
