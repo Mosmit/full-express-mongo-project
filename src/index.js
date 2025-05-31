@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const collection = require("./config");
+const axios = require("axios");
 
 const app = express();
 
@@ -23,6 +24,27 @@ app.get("/", (req, res) =>{
 app.get("/signup", (req, res) =>{
     res.render("signup");
 });
+
+//personal news addition
+app.get("/news", async (req, res) => {
+    //res.render("news")
+    try {
+        const newsAPI = await axios.get("https://raddy.dev/wp-json/wp/v2/posts/")
+        //console.log(newsAPI.data)
+        res.render("news", { articles : newsAPI.data});
+    } catch (err) {
+        if (err.response){
+            console.log(err.response.data)
+            console.log(err.response.status)
+            console.log(err.response.headers)
+        } else if(err.request){
+            console.log(err.request)
+        } else {
+            console.error("Error", err.message)
+        }
+        
+    }
+}); 
 
 //register user
 app.post("/signup", async (req, res) =>{
