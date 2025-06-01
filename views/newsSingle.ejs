@@ -10,7 +10,12 @@
 <body>
     <header class="header">
         <div class="header__logo">Mosmit News</div>
-        <div class="header__search">Search</div>
+        <div class="header__search">
+            <form action="/news" method="POST">
+                <input type="text" name="search" placeholder="Search For News" required>
+                <input type="submit" value="Search">
+            </form>
+        </div>
     </header>
     <div class="wrapper">
         <div class="news-single"> 
