@@ -3,6 +3,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const collection = require("./config");
 const axios = require("axios");
+const bodyParser = require("body-parser")
 
 const app = express();
 
@@ -16,6 +17,9 @@ app.set("view engine", "ejs");
 
 //static files e.g styles,images etc we use app.use.express to access it for it to be seen
 app.use(express.static("public"));
+
+//to use bodyparser which is for passing data from one page to another
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get("/", (req, res) =>{
     res.render("login");
@@ -34,17 +38,48 @@ app.get("/news", async (req, res) => {
         res.render("news", { articles : newsAPI.data});
     } catch (err) {
         if (err.response){
+            res.render("news", { articles : null})
             console.log(err.response.data)
             console.log(err.response.status)
             console.log(err.response.headers)
         } else if(err.request){
+            res.render("news", { articles : null})
             console.log(err.request)
         } else {
+            res.render("news", { articles : null})
             console.error("Error", err.message)
         }
         
     }
 }); 
+
+//trying app.use for article
+// app.use("/news/article")
+
+//personal news addition for the single card-page for continuation
+app.get("/news/:id", async (req, res) => {
+    let articleID = req.params.id
+    try {
+        const newsAPI = await axios.get(`https://raddy.dev/wp-json/wp/v2/posts/${articleID}`)
+        //console.log(newsAPI.data)
+        res.render("newsSingle", { article : newsAPI.data});
+    } catch (err) {
+        if (err.response){
+            res.render("newsSingle", { article : null})
+            console.log(err.response.data)
+            console.log(err.response.status)
+            console.log(err.response.headers)
+        } else if(err.request){
+            res.render("newsSingle", { article : null})
+            console.log(err.request)
+        } else {
+            res.render("newsSingle", { article : null})
+            console.error("Error", err.message)
+        }
+        
+    }
+}); 
+
 
 //register user
 app.post("/signup", async (req, res) =>{
