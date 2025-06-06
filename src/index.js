@@ -152,7 +152,15 @@ app.post("/login", async (req, res) => {
     }
 });
 
+//testing on connecting home to content
+app.get("/login/home", (req, res) =>{
+    res.render("content1");
+});
 
+app.post("/login/home", (req, res) =>{
+    
+    res.render("news.ejs");
+});
 
 
 const port = 4000;
